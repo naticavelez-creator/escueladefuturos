@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Escuela de Futuros — Donde las personas se reúnen para construir mejores futuros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#16150F; --ink-soft:#3A372C;
+    --paper:#F5F1E9; --paper-deep:#ECE6D8;
+    --gold:#F3C54B; --gold-soft:#F8DA8C; --gold-deep:#9C6F0C;
+    --muted:#7A766B; --line:rgba(22,21,15,0.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;line-height:1.6;
+    overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  }
+  .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+  section{padding:104px 0;position:relative}
+  section+section{border-top:1px solid var(--line)}
+  h1,h2,h3,h4,h5{font-weight:800;letter-spacing:-0.02em;line-height:1.04}
+
+  /* NAV */
+  nav.top{position:sticky;top:0;z-index:50;background:rgba(245,241,233,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  nav.top .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:16px;padding-bottom:16px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-mark{width:40px;height:40px;background:var(--ink);color:var(--gold);display:grid;place-items:center;font-weight:800;font-size:18px;border-radius:11px;letter-spacing:-0.04em}
+  .brand-name{font-size:18px;font-weight:800;letter-spacing:-0.02em;line-height:1}
+  .brand-name em{font-style:normal;font-weight:500;color:var(--muted);font-size:12px;display:block;margin-top:3px;letter-spacing:0}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;opacity:.8;transition:opacity .2s}
+  .nav-links a:hover{opacity:1}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;background:var(--gold);color:var(--ink);text-decoration:none;font-size:14px;font-weight:700;border:1.5px solid var(--gold);cursor:pointer;border-radius:12px;transition:transform .2s,background .2s,box-shadow .2s;letter-spacing:-0.01em}
+  .btn:hover{background:#EDB92F;border-color:#EDB92F;transform:translateY(-2px);box-shadow:0 8px 22px rgba(243,197,75,0.35)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:none}
+  .btn .arr{transition:transform .2s}
+  .btn:hover .arr{transform:translateX(3px)}
+
+  /* HERO */
+  .hero{padding-top:72px;padding-bottom:88px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:64px;align-items:center}
+  .hero-tag{display:inline-flex;align-items:center;gap:12px;margin-bottom:30px;background:var(--paper-deep);padding:9px 16px;border-radius:999px}
+  .hero-tag .dot{width:8px;height:8px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+  .hero h1{font-size:clamp(44px,5.6vw,82px);margin-bottom:28px}
+  .hero h1 .gold{color:var(--gold)}
+  .hero-lead{font-size:clamp(17px,1.4vw,20px);line-height:1.55;max-width:520px;color:var(--ink-soft);margin-bottom:36px}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+
+  /* HERO VISUAL */
+  .hero-visual{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:linear-gradient(150deg,#F8DA8C 0%,#E9A93A 45%,#7C5A1E 100%)}
+  .hero-visual .mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(8,1fr);gap:6px;padding:14px}
+  .hero-visual .tile{border-radius:6px;background:rgba(22,21,15,0.10)}
+  .hero-visual .tile.a{background:rgba(255,255,255,0.22)}
+  .hero-visual .tile.b{background:rgba(22,21,15,0.22)}
+  .hero-visual .tile.c{background:var(--gold)}
+  .hero-visual .glow{position:absolute;width:60%;height:60%;background:radial-gradient(circle,rgba(255,255,255,.5),transparent 70%);top:-10%;right:-10%}
+  .hero-chip{position:absolute;bottom:20px;left:20px;right:20px;background:rgba(245,241,233,0.94);backdrop-filter:blur(8px);border-radius:14px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .hero-chip .big{font-size:30px;font-weight:800;letter-spacing:-0.03em;line-height:1}
+  .hero-chip .small{font-size:12px;color:var(--ink-soft);font-weight:500;line-height:1.3}
+
+  /* MARQUEE */
+  .marquee{background:var(--ink);color:var(--paper);padding:22px 0;overflow:hidden;white-space:nowrap}
+  .marquee-track{display:inline-block;animation:scroll 48s linear infinite;font-size:26px;font-weight:700;letter-spacing:-0.01em}
+  .marquee-track span{margin:0 26px}
+  .marquee-track span.b{color:var(--gold);margin:0 16px}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* SECTION HEAD */
+  .sec-head{display:grid;grid-template-columns:auto 1fr;gap:56px;margin-bottom:72px;align-items:start}
+  .sec-num{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.18em;padding-top:12px;opacity:.55;white-space:nowrap}
+  .sec-num::before{content:"";display:inline-block;width:32px;height:1px;background:var(--ink);vertical-align:middle;margin-right:14px;opacity:.5}
+  .sec-title{font-size:clamp(36px,5vw,68px);max-width:16ch}
+  .sec-title .gold{color:var(--gold-deep)}
+  .sec-title .soft{color:var(--muted);font-weight:700}
+  .sec-sub{font-size:18px;max-width:56ch;margin-top:20px;color:var(--ink-soft);line-height:1.55;font-weight:500}
+
+  /* NÚMEROS */
+  .numbers{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+  .nbox{background:var(--paper-deep);padding:38px 30px;border-radius:14px}
+  .nbox .n{font-size:56px;font-weight:800;letter-spacing:-0.03em;line-height:1;color:var(--ink)}
+  .nbox .n .u{color:var(--gold-deep)}
+  .nbox .k{font-size:14px;color:var(--ink-soft);margin-top:10px;font-weight:600;line-height:1.3}
+
+  /* PILARES */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+  .pillar{background:var(--paper-deep);padding:44px 34px;min-height:360px;display:flex;flex-direction:column;justify-content:space-between;transition:background .3s,color .3s;cursor:pointer;border-radius:14px}
+  .pillar:hover{background:var(--ink);color:var(--paper)}
+  .pillar:hover .pillar-num{color:var(--gold)}
+  .pillar-num{font-size:72px;font-weight:800;letter-spacing:-0.04em;line-height:1;color:var(--gold-deep);transition:color .3s}
+  .pillar-title{font-size:26px;font-weight:800;margin:18px 0 12px;line-height:1.1}
+  .pillar-desc{font-size:15px;line-height:1.55;opacity:.85;font-weight:500}
+
+  /* ENCUENTRO (dark) */
+  .dark{background:var(--ink);color:var(--paper)}
+  .dark .sec-num{opacity:.6}
+  .dark .sec-num::before{background:var(--paper);opacity:.4}
+  .dark .sec-title{color:var(--paper)}
+  .dark .sec-title .gold{color:var(--gold)}
+  .dark .sec-sub{color:rgba(245,241,233,0.78)}
+  .enc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+  .program{display:flex;flex-direction:column}
+  .prog-row{display:grid;grid-template-columns:84px 1fr;gap:22px;padding:24px 0;border-top:1px solid rgba(245,241,233,0.16);align-items:start}
+  .prog-row:first-child{border-top:none}
+  .prog-day{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding-top:4px}
+  .prog-t{display:block;font-size:21px;font-weight:800;line-height:1.12;margin-bottom:6px;color:var(--paper);letter-spacing:-0.01em}
+  .prog-d{display:block;font-size:14px;line-height:1.5;color:rgba(245,241,233,0.72);font-weight:500}
+  .prog-open .prog-day{font-size:26px;color:var(--gold-soft);padding-top:0;line-height:1;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800}
+  .prog-open .prog-t{color:var(--gold-soft)}
+  .enc-info h3{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:22px;letter-spacing:-0.02em}
+  .enc-info h3 .gold{color:var(--gold)}
+  .enc-info p{font-size:16px;line-height:1.6;color:rgba(245,241,233,0.8);margin-bottom:16px;font-weight:500}
+  .enc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:38px;padding-top:30px;border-top:1px solid rgba(245,241,233,0.16)}
+  .stat .n{font-size:48px;line-height:1;font-weight:800;color:var(--gold);letter-spacing:-0.03em}
+  .stat .k{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.13em;opacity:.7;margin-top:8px}
+
+  /* GENERADOR */
+  .gen-card{background:var(--paper-deep);border:1px solid var(--line);padding:46px;border-radius:18px;display:grid;grid-template-columns:1fr 1.35fr;gap:54px;align-items:stretch}
+  .gen-controls h4{font-size:25px;margin-bottom:8px;font-weight:800}
+  .gen-controls .lead{font-size:14px;color:var(--muted);margin-bottom:30px;font-weight:500}
+  .gen-field{margin-bottom:22px}
+  .gen-field .label{display:block;margin-bottom:10px;opacity:.65}
+  .gen-input{width:100%;padding:14px 16px;background:var(--paper);border:1px solid var(--line);border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--ink);font-weight:500}
+  .gen-input:focus{outline:none;border-color:var(--gold-deep)}
+  .gen-chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{padding:9px 15px;background:var(--paper);border:1px solid var(--line);border-radius:999px;font-size:13px;cursor:pointer;transition:all .2s;font-weight:600}
+  .chip:hover,.chip.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .scenario-output{background:var(--ink);color:var(--paper);padding:34px;border-radius:14px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .scenario-output::before{content:"";position:absolute;top:0;right:0;width:220px;height:220px;background:radial-gradient(circle,var(--gold) 0%,transparent 70%);opacity:.2;transform:translate(40%,-40%)}
+  .scenario-tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.13em;text-transform:uppercase;opacity:.7;margin-bottom:22px;position:relative;z-index:1}
+  .scenario-tag .dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 1.6s infinite}
+  .scenario-title{font-size:32px;line-height:1.1;font-weight:800;margin-bottom:18px;position:relative;z-index:1;letter-spacing:-0.02em}
+  .scenario-title .gold{color:var(--gold)}
+  .scenario-body{font-size:15px;line-height:1.6;opacity:.88;margin-bottom:18px;position:relative;z-index:1;font-weight:500}
+  .scenario-signals{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:auto;padding-top:22px;border-top:1px solid rgba(245,241,233,0.14);position:relative;z-index:1}
+  .signal-item{font-size:13px}
+  .signal-item .lab{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.13em;opacity:.55;display:block;margin-bottom:4px}
+  .signal-item .val{color:var(--gold-soft);font-weight:600}
+
+  /* CAPÍTULOS */
+  .chapters{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+  .chap{background:var(--paper-deep);padding:34px 30px;min-height:230px;position:relative;transition:background .3s,color .3s;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;border-radius:14px}
+  .chap:hover{background:var(--gold)}
+  .chap-flag{font-size:34px;margin-bottom:14px;line-height:1}
+  .chap-city{font-size:26px;font-weight:800;line-height:1.05;letter-spacing:-0.02em}
+  .chap-city .sub{display:block;font-size:14px;color:var(--muted);font-weight:600;margin-top:6px;letter-spacing:0}
+  .chap:hover .chap-city .sub{color:var(--ink-soft)}
+  .chap-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;opacity:.78}
+  .chap-status{display:inline-flex;align-items:center;gap:8px}
+  .chap-status .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-deep)}
+  .chap-status.cur .dot{background:var(--muted)}
+  .chap-status.live .dot{background:#2DA86A;box-shadow:0 0 0 4px rgba(45,168,106,.2);animation:pulse 1.6s infinite}
+
+  /* LICENCIA */
+  .key-dates{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:56px}
+  .kd{background:var(--paper-deep);padding:28px 26px;border-radius:14px;display:flex;flex-direction:column;gap:8px}
+  .kd-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.13em;text-transform:uppercase;opacity:.55}
+  .kd-v{font-size:28px;font-weight:800;letter-spacing:-0.02em}
+  .lic-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+  .lic-step{display:grid;grid-template-columns:54px 1fr;gap:22px;padding:28px 0;border-top:1px solid var(--line)}
+  .lic-step:last-child{border-bottom:1px solid var(--line)}
+  .lic-step .n{font-size:38px;font-weight:800;color:var(--gold-deep);line-height:1;letter-spacing:-0.03em}
+  .lic-step h5{font-size:21px;font-weight:800;margin-bottom:8px;line-height:1.15}
+  .lic-step p{font-size:14px;color:var(--ink-soft);line-height:1.55;font-weight:500}
+  .lic-form{background:var(--paper-deep);padding:40px;border-radius:18px;border:1px solid var(--line)}
+  .lic-form h4{font-size:25px;margin-bottom:6px;font-weight:800}
+  .lic-form .lead{font-size:14px;color:var(--muted);margin-bottom:26px;font-weight:500}
+  .lic-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .lic-input{width:100%;padding:14px 16px;background:var(--paper);border:1px solid var(--line);border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500}
+  .lic-input:focus{outline:none;border-color:var(--gold-deep)}
+  textarea.lic-input{resize:vertical;min-height:80px}
+  .lic-foot{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:16px;flex-wrap:wrap}
+  .lic-foot .note{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;opacity:.5}
+
+  /* EN ACCIÓN */
+  .ref-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+  .ref-card{background:var(--paper-deep);aspect-ratio:3/4;position:relative;overflow:hidden;cursor:pointer;transition:transform .3s;border-radius:14px}
+  .ref-card:hover{transform:translateY(-5px)}
+  .ref-card .thumb{position:absolute;inset:0;display:grid;place-items:center;font-size:52px;background:linear-gradient(150deg,#E9A93A,#7C5A1E);color:rgba(245,241,233,0.55)}
+  .ref-card .thumb.v2{background:linear-gradient(150deg,#F3C54B,#9C6F0C)}
+  .ref-card .thumb.v3{background:linear-gradient(150deg,#C9C2AE,#5E5A4C);color:rgba(22,21,15,0.5)}
+  .ref-card .thumb.v4{background:linear-gradient(150deg,#3A372C,#16150F)}
+  .ref-card .play{position:absolute;top:16px;left:16px;width:36px;height:36px;background:rgba(245,241,233,0.95);border-radius:50%;display:grid;place-items:center;color:var(--ink);font-size:12px}
+  .ref-card .meta{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(to top,rgba(22,21,15,0.95),transparent);color:var(--paper)}
+  .ref-card .meta .ref-flag{font-size:18px;margin-bottom:8px}
+  .ref-card .meta .ref-title{font-size:18px;font-weight:800;line-height:1.15;margin-bottom:6px;letter-spacing:-0.01em}
+  .ref-card .meta .ref-by{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;opacity:.72}
+
+  /* FAQ */
+  .faq-list{display:grid;gap:0;max-width:900px}
+  details.faq{border-top:1px solid var(--line);padding:24px 0}
+  details.faq:last-child{border-bottom:1px solid var(--line)}
+  details.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:21px;font-weight:800;letter-spacing:-0.01em;gap:24px}
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary .plus{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:400;transition:transform .3s;flex-shrink:0}
+  details.faq[open] summary .plus{transform:rotate(45deg);color:var(--gold-deep)}
+  details.faq p{margin-top:14px;font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:70ch;font-weight:500}
+
+  /* CTA FINAL */
+  .cta-final{background:var(--gold);text-align:center}
+  .cta-final h2{font-size:clamp(36px,5vw,66px);max-width:18ch;margin:0 auto 22px}
+  .cta-final p{font-size:18px;max-width:48ch;margin:0 auto 34px;color:var(--ink);font-weight:600;opacity:.85}
+  .cta-final .btn{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .cta-final .btn:hover{background:#000;border-color:#000;box-shadow:0 8px 22px rgba(22,21,15,0.25)}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:var(--paper);padding:76px 0 36px}
+  footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px}
+  footer h6{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;opacity:.55;margin-bottom:18px;font-weight:500}
+  footer ul{list-style:none}
+  footer li{margin-bottom:10px}
+  footer a{color:var(--paper);text-decoration:none;font-size:14px;opacity:.85;transition:opacity .2s;font-weight:500}
+  footer a:hover{opacity:1;color:var(--gold)}
+  .foot-brand .brand-mark{background:var(--gold);color:var(--ink)}
+  .foot-brand .brand-name{color:var(--paper)}
+  .foot-brand .brand-name em{color:rgba(245,241,233,0.6)}
+  .foot-brand p{margin-top:20px;font-size:14px;line-height:1.55;opacity:.75;max-width:32ch;font-weight:500}
+  .foot-bottom{margin-top:56px;padding-top:24px;border-top:1px solid rgba(245,241,233,0.12);display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;opacity:.6;flex-wrap:wrap;gap:16px}
+
+  /* RESPONSIVE */
+  @media (max-width:980px){
+    section{padding:76px 0}
+    .wrap{padding:0 22px}
+    .nav-links{display:none}
+    .hero-grid,.enc-wrap,.gen-card,.lic-grid{grid-template-columns:1fr;gap:48px}
+    .hero-visual{max-width:440px}
+    .pillars,.chapters{grid-template-columns:1fr;gap:8px}
+    .numbers{grid-template-columns:1fr 1fr;gap:8px}
+    .key-dates{grid-template-columns:1fr;gap:8px}
+    .ref-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+    .sec-head{grid-template-columns:1fr;gap:22px;margin-bottom:48px}
+    footer .wrap{grid-template-columns:1fr 1fr;gap:36px}
+    .gen-card{padding:30px}
+    .lic-form{padding:28px}
+  }
+  @media (max-width:560px){
+    .hero h1{font-size:42px}
+    .lic-row{grid-template-columns:1fr}
+    .enc-stats{grid-template-columns:1fr 1fr}
+    .ref-grid{grid-template-columns:1fr 1fr}
+    footer .wrap{grid-template-columns:1fr}
+    .brand-name em{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">
+      <div class="brand-mark">EF</div>
+      <div class="brand-name">Escuela de Futuros<em>una comunidad global</em></div>
+    </div>
+    <div class="nav-links">
+      <a href="#manifiesto">Manifiesto</a>
+      <a href="#encuentro">El encuentro</a>
+      <a href="#generador">Escenarios</a>
+      <a href="#capitulos">Capítulos</a>
+      <a href="#licencia">Licencia</a>
+    </div>
+    <a href="#licencia" class="btn">Únete a la comunidad <span class="arr">→</span></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag">
+          <span class="dot"></span>
+          <span class="label">42 ciudades · 12 países · convocatoria abierta</span>
+        </div>
+        <h1>Donde las personas se reúnen para imaginar, diseñar y construir <span class="gold">mejores futuros.</span></h1>
+        <p class="hero-lead">Una comunidad global que convierte ideas en acciones para transformar nuestras ciudades, hoy. Abre un capítulo donde vives y pon en escena los futuros que tu ciudad merece.</p>
+        <div class="hero-ctas">
+          <a href="#licencia" class="btn">Únete a la comunidad <span class="arr">→</span></a>
+          <a href="#generador" class="btn btn-ghost">Explorar futuros</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="glow"></div>
+        <div class="mosaic">
+          <div class="tile a"></div><div class="tile"></div><div class="tile b"></div><div class="tile"></div><div class="tile a"></div><div class="tile"></div>
+          <div class="tile"></div><div class="tile c"></div><div class="tile"></div><div class="tile a"></div><div class="tile"></div><div class="tile b"></div>
+          <div class="tile b"></div><div class="tile"></div><div class="tile a"></div><div class="tile"></div><div class="tile c"></div><div class="tile"></div>
+          <div class="tile"></div><div class="tile a"></div><div class="tile"></div><div class="tile b"></div><div class="tile"></div><div class="tile a"></div>
+          <div class="tile a"></div><div class="tile"></div><div class="tile c"></div><div class="tile"></div><div class="tile a"></div><div class="tile"></div>
+          <div class="tile"></div><div class="tile b"></div><div class="tile"></div><div class="tile a"></div><div class="tile"></div><div class="tile c"></div>
+          <div class="tile c"></div><div class="tile"></div><div class="tile a"></div><div class="tile"></div><div class="tile b"></div><div class="tile"></div>
+          <div class="tile"></div><div class="tile a"></div><div class="tile"></div><div class="tile c"></div><div class="tile"></div><div class="tile a"></div>
+        </div>
+        <div class="hero-chip">
+          <div class="big">+8.400</div>
+          <div class="small">personas reunidas<br>en los capítulos activos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Imaginar · Diseñar · Construir</span><span class="b">✦</span>
+    <span>De la idea a la acción</span><span class="b">✦</span>
+    <span>Mejores futuros, hoy</span><span class="b">✦</span>
+    <span>Cada capítulo es soberano</span><span class="b">✦</span>
+    <span>Imaginar · Diseñar · Construir</span><span class="b">✦</span>
+    <span>De la idea a la acción</span><span class="b">✦</span>
+    <span>Mejores futuros, hoy</span><span class="b">✦</span>
+    <span>Cada capítulo es soberano</span><span class="b">✦</span>
+  </div>
+</div>
+
+<!-- MANIFIESTO -->
+<section id="manifiesto">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">01 / Manifiesto</div>
+      <div>
+        <h2 class="sec-title">Tres convicciones <span class="soft">que mueven la escuela.</span></h2>
+        <p class="sec-sub">No somos un think tank ni un festival. Somos una comunidad ligera para que cualquier ciudad imagine, diseñe y construya —en colectivo— los futuros que le importan.</p>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div>
+          <h3 class="pillar-title">Imaginar es una práctica cívica.</h3>
+          <p class="pillar-desc">El futuro deja de ser monopolio de gobiernos y consultoras cuando una comunidad organizada lo imagina primero. Cada capítulo es un espacio abierto al barrio.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div>
+          <h3 class="pillar-title">La comunidad es del territorio.</h3>
+          <p class="pillar-desc">La licencia es gratuita, perpetua y sin oficina central. Cada ciudad fija su agenda, sus invitados y su voz. La red solo cuida el método y conecta a las personas.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div>
+          <h3 class="pillar-title">De la idea a la acción.</h3>
+          <p class="pillar-desc">No nos quedamos en el diagnóstico. Cada capítulo convierte sus escenarios en acciones concretas que transforman la ciudad ahora, no en un informe para después.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">— En números</div>
+      <div>
+        <h2 class="sec-title">Una red que <span class="gold">crece sola.</span></h2>
+      </div>
+    </div>
+    <div class="numbers">
+      <div class="nbox"><div class="n">42</div><div class="k">Capítulos activos en el mundo</div></div>
+      <div class="nbox"><div class="n">12</div><div class="k">Países con comunidad propia</div></div>
+      <div class="nbox"><div class="n">8.4<span class="u">k</span></div><div class="k">Personas reunidas hasta hoy</div></div>
+      <div class="nbox"><div class="n">100<span class="u">%</span></div><div class="k">Licencias gratuitas y abiertas</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EL ENCUENTRO -->
+<section id="encuentro" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">02 / El encuentro</div>
+      <div>
+        <h2 class="sec-title">El <span class="gold">encuentro.</span></h2>
+        <p class="sec-sub">El punto de llegada de cada capítulo. Una jornada —o varias— donde la ciudad se reúne en público para poner en escena los futuros que ha imaginado: charlas, intervenciones, prototipos, performances, asambleas y talleres abiertos a cualquiera.</p>
+      </div>
+    </div>
+
+    <div class="enc-wrap">
+      <div class="program">
+        <div class="prog-row">
+          <span class="prog-day">Día 01</span>
+          <div><span class="prog-t">Apertura &amp; escenarios</span><span class="prog-d">La ciudad presenta las hipótesis de futuro que construyó con el generador.</span></div>
+        </div>
+        <div class="prog-row">
+          <span class="prog-day">Día 02</span>
+          <div><span class="prog-t">Acción en territorio</span><span class="prog-d">Prototipos, performances y caminatas por los barrios donde las ideas se vuelven hechos.</span></div>
+        </div>
+        <div class="prog-row">
+          <span class="prog-day">Día 03</span>
+          <div><span class="prog-t">Asamblea &amp; compromisos</span><span class="prog-d">La comunidad debate, decide y se reparte lo que seguirá construyendo después.</span></div>
+        </div>
+        <div class="prog-row prog-open">
+          <span class="prog-day">+</span>
+          <div><span class="prog-t">Tantos días como tu ciudad necesite</span><span class="prog-d">El formato es flexible: cada capítulo define la duración y el ritmo de su encuentro.</span></div>
+        </div>
+      </div>
+
+      <div class="enc-info">
+        <h3>Un encuentro que convierte una ciudad <span class="gold">en una hipótesis viva.</span></h3>
+        <p>No hay un guion fijo. Una edición puede caber en una tarde o extenderse durante una semana; lo que importa es que las personas se reúnan, imaginen juntas y salgan con algo construido: un prototipo de barrio, un acuerdo vecinal, una intervención artística, una asamblea ciudadana.</p>
+        <p>Al cerrar, la ciudad comparte con la red lo que aprendió, para que el siguiente capítulo arranque más lejos.</p>
+
+        <div class="enc-stats">
+          <div class="stat"><div class="n">1+</div><div class="k">Días, flexible</div></div>
+          <div class="stat"><div class="n">100%</div><div class="k">En público</div></div>
+          <div class="stat"><div class="n">∞</div><div class="k">Réplica abierta</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GENERADOR -->
+<section id="generador">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">03 / Herramienta</div>
+      <div>
+        <h2 class="sec-title">Generador <span class="soft">de escenarios.</span></h2>
+        <p class="sec-sub">Antes del encuentro, cada capítulo ejecuta un sprint de imaginación. Una herramienta integrada propone escenarios de futuro a partir de cinco señales locales que tú eliges, y los traduce a acciones concretas para llevar a la ciudad.</p>
+      </div>
+    </div>
+
+    <div class="gen-card">
+      <div class="gen-controls">
+        <h4>Define tu hipótesis</h4>
+        <p class="lead">Cinco entradas. Un escenario procesado en menos de 30 segundos.</p>
+
+        <div class="gen-field">
+          <label class="label">Ciudad / capítulo</label>
+          <input class="gen-input" value="Medellín · Capítulo 07" />
+        </div>
+        <div class="gen-field">
+          <label class="label">Horizonte temporal</label>
+          <div class="gen-chips">
+            <div class="chip">+ 3 años</div>
+            <div class="chip active">+ 10 años</div>
+            <div class="chip">+ 25 años</div>
+            <div class="chip">+ 50 años</div>
+          </div>
+        </div>
+        <div class="gen-field">
+          <label class="label">Eje temático</label>
+          <div class="gen-chips">
+            <div class="chip active">Cuidados</div>
+            <div class="chip">Movilidad</div>
+            <div class="chip">Trabajo</div>
+            <div class="chip">Memoria</div>
+            <div class="chip">Clima</div>
+          </div>
+        </div>
+        <div class="gen-field">
+          <label class="label">Señales locales (5)</label>
+          <textarea class="gen-input" rows="3">Migración interna; clima de montaña en transición; economía del cuidado feminizada; pactos vecinales emergentes; IA como infraestructura barrial.</textarea>
+        </div>
+        <button class="btn">Generar escenario <span class="arr">→</span></button>
+      </div>
+
+      <div class="scenario-output">
+        <div class="scenario-tag"><span class="dot"></span><span>Escenario · 03 · 2036</span></div>
+        <h3 class="scenario-title">La ciudad <span class="gold">aprende</span> a ser cuidada por sus laderas.</h3>
+        <p class="scenario-body">En 2036, Medellín ha redefinido el cuidado como infraestructura pública. Cooperativas vecinales operan microclínicas conectadas por teleféricos de carga; los algoritmos de barrio negocian agua y sombra entre comunas. La ciudad ya no se planea desde arriba: se sintoniza.</p>
+        <p class="scenario-body" style="opacity:.7">→ 12 acciones derivadas para el encuentro: asamblea de cuidadoras, mapa sonoro de laderas, performance climática, prototipo de IA vecinal…</p>
+
+        <div class="scenario-signals">
+          <div class="signal-item"><span class="lab">Tensión central</span><span class="val">Cuidar vs. extraer</span></div>
+          <div class="signal-item"><span class="lab">Probabilidad</span><span class="val">Plausible · 0.62</span></div>
+          <div class="signal-item"><span class="lab">Actor clave</span><span class="val">Cooperativas barriales</span></div>
+          <div class="signal-item"><span class="lab">Riesgo</span><span class="val">Captura privada</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPÍTULOS -->
+<section id="capitulos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">04 / Capítulos</div>
+      <div>
+        <h2 class="sec-title">42 ciudades, <span class="gold">una comunidad.</span></h2>
+        <p class="sec-sub">Cada capítulo es autónomo: define su agenda, sus invitados, su voz. La red comparte el método, las personas y la próxima fecha sincronizada de los encuentros.</p>
+      </div>
+    </div>
+
+    <div class="chapters">
+      <div class="chap">
+        <div><div class="chap-flag">🇲🇽</div><div class="chap-city">Ciudad de México<span class="sub">Capítulo 01 · piloto</span></div></div>
+        <div class="chap-foot"><span class="chap-status live"><span class="dot"></span>En vivo</span><span>Completo</span></div>
+      </div>
+      <div class="chap">
+        <div><div class="chap-flag">🇨🇴</div><div class="chap-city">Medellín<span class="sub">Capítulo 07 · activo</span></div></div>
+        <div class="chap-foot"><span class="chap-status"><span class="dot"></span>Próximo</span><span>21 · 09 · 26</span></div>
+      </div>
+      <div class="chap">
+        <div><div class="chap-flag">🇪🇸</div><div class="chap-city">Barcelona<span class="sub">Capítulo 12</span></div></div>
+        <div class="chap-foot"><span class="chap-status"><span class="dot"></span>Preparando</span><span>Recién abierto</span></div>
+      </div>
+      <div class="chap">
+        <div><div class="chap-flag">🇦🇷</div><div class="chap-city">Buenos Aires<span class="sub">Capítulo 09</span></div></div>
+        <div class="chap-foot"><span class="chap-status cur"><span class="dot"></span>Realizado</span><span>Edición 01</span></div>
+      </div>
+      <div class="chap">
+        <div><div class="chap-flag">🇧🇷</div><div class="chap-city">São Paulo<span class="sub">Capítulo 18</span></div></div>
+        <div class="chap-foot"><span class="chap-status"><span class="dot"></span>Preparando</span><span>En curso</span></div>
+      </div>
+      <div class="chap">
+        <div><div class="chap-flag">🇰🇪</div><div class="chap-city">Nairobi<span class="sub">Capítulo 22</span></div></div>
+        <div class="chap-foot"><span class="chap-status"><span class="dot"></span>Preparando</span><span>En curso</span></div>
+      </div>
+      <div class="chap">
+        <div><div class="chap-flag">🇯🇵</div><div class="chap-city">Tokio<span class="sub">Capítulo 28</span></div></div>
+        <div class="chap-foot"><span class="chap-status cur"><span class="dot"></span>Realizado</span><span>Edición 02</span></div>
+      </div>
+      <div class="chap">
+        <div><div class="chap-flag">🇨🇱</div><div class="chap-city">Valparaíso<span class="sub">Capítulo 33</span></div></div>
+        <div class="chap-foot"><span class="chap-status"><span class="dot"></span>Próximo</span><span>11 · 11 · 26</span></div>
+      </div>
+      <div class="chap">
+        <div><div class="chap-flag">🇮🇸</div><div class="chap-city">Reikiavik<span class="sub">Capítulo 41 · nuevo</span></div></div>
+        <div class="chap-foot"><span class="chap-status"><span class="dot"></span>Preparando</span><span>Recién abierto</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LICENCIA -->
+<section id="licencia">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">05 / Licencia</div>
+      <div>
+        <h2 class="sec-title">Abre un capítulo <span class="gold">en tu ciudad.</span></h2>
+        <p class="sec-sub">La licencia es gratuita. Lo que pedimos a cambio: que actives una comunidad real, que sigas el método y que compartas con la red lo que vayas aprendiendo. Una persona puede iniciar el proceso; una comunidad lo sostiene.</p>
+      </div>
+    </div>
+
+    <div class="key-dates">
+      <div class="kd"><span class="kd-k">Convocatoria abierta</span><span class="kd-v">12 · 05 · 2026</span></div>
+      <div class="kd"><span class="kd-k">Cierre de solicitudes</span><span class="kd-v">30 · 11 · 2026</span></div>
+      <div class="kd"><span class="kd-k">Capítulos anunciados</span><span class="kd-v">31 · 01 · 2027</span></div>
+    </div>
+
+    <div class="lic-grid">
+      <div>
+        <div class="lic-step">
+          <div class="n">01</div>
+          <div><h5>Solicitud</h5><p>Cuéntanos sobre tu ciudad, tu equipo (mínimo 3 personas) y la tensión local que quieres atravesar.</p></div>
+        </div>
+        <div class="lic-step">
+          <div class="n">02</div>
+          <div><h5>Conversación</h5><p>Una llamada de 45 minutos con dos personas de la red. No es entrevista: es alineación de tono y de propósito.</p></div>
+        </div>
+        <div class="lic-step">
+          <div class="n">03</div>
+          <div><h5>Kit de licencia</h5><p>Recibes el método, plantillas, identidad gráfica adaptable, acceso al generador y la plantilla legal del capítulo.</p></div>
+        </div>
+        <div class="lic-step">
+          <div class="n">04</div>
+          <div><h5>El encuentro</h5><p>Tienes hasta 9 meses para programar tu encuentro —uno o varios días, como tu ciudad necesite. La fecha se sincroniza con la red.</p></div>
+        </div>
+        <div class="lic-step">
+          <div class="n">05</div>
+          <div><h5>Comunidad en red</h5><p>Tu ciudad entra al mapa global, comparte lo que construye y aprende de los demás capítulos del mundo.</p></div>
+        </div>
+      </div>
+
+      <div class="lic-form">
+        <h4>Solicitud de licencia</h4>
+        <p class="lead">Convocatoria 2026 abierta hasta el 30 · 11 · 2026.</p>
+        <div class="lic-row">
+          <input class="lic-input" placeholder="Nombre completo" />
+          <input class="lic-input" placeholder="Ciudad propuesta" />
+        </div>
+        <div class="lic-row">
+          <input class="lic-input" placeholder="País" />
+          <input class="lic-input" placeholder="Correo de contacto" />
+        </div>
+        <div style="margin-bottom:14px"><input class="lic-input" placeholder="¿Quién más está en tu equipo? (3 mín.)" /></div>
+        <div style="margin-bottom:14px"><textarea class="lic-input" placeholder="¿Qué futuro quieres construir con tu ciudad? (máx. 280 caracteres)"></textarea></div>
+        <div style="margin-bottom:14px"><input class="lic-input" placeholder="Enlace a portafolio o referencia (opcional)" /></div>
+        <div class="lic-foot">
+          <span class="note">Respuesta en 14 días</span>
+          <button class="btn">Enviar solicitud <span class="arr">→</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EN ACCIÓN -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">06 / En acción</div>
+      <div>
+        <h2 class="sec-title">Ideas que ya <span class="gold">son hechos.</span></h2>
+        <p class="sec-sub">Cada capítulo comparte lo que construyó: videos cortos de acciones reales que cualquier otra ciudad puede retomar, adaptar y volver a poner en marcha.</p>
+      </div>
+    </div>
+
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="thumb">▲</div><div class="play">▶</div>
+        <div class="meta"><div class="ref-flag">🇲🇽</div><div class="ref-title">Asamblea climática en Iztapalapa</div><div class="ref-by">CDMX · 07 min</div></div>
+      </div>
+      <div class="ref-card">
+        <div class="thumb v2">◐</div><div class="play">▶</div>
+        <div class="meta"><div class="ref-flag">🇨🇴</div><div class="ref-title">Cooperativas de cuidado: prototipo de barrio</div><div class="ref-by">Medellín · 06 min</div></div>
+      </div>
+      <div class="ref-card">
+        <div class="thumb v3">✦</div><div class="play">▶</div>
+        <div class="meta"><div class="ref-flag">🇰🇪</div><div class="ref-title">Una IA que escucha el suelo</div><div class="ref-by">Nairobi · 07 min</div></div>
+      </div>
+      <div class="ref-card">
+        <div class="thumb v4">◇</div><div class="play">▶</div>
+        <div class="meta"><div class="ref-flag">🇯🇵</div><div class="ref-title">El templo como nodo de barrio</div><div class="ref-by">Tokio · 05 min</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">07 / Dudas frecuentes</div>
+      <div>
+        <h2 class="sec-title">Todo lo que <span class="soft">querías preguntar.</span></h2>
+      </div>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq" open>
+        <summary>¿Cuánto cuesta la licencia? <span class="plus">+</span></summary>
+        <p>Cero. La licencia es gratuita y perpetua. Lo único que pedimos es que actives una comunidad real en tu ciudad y compartas con la red lo que vayas aprendiendo. Si tu capítulo consigue patrocinios o apoyos institucionales, son tuyos íntegramente.</p>
+      </details>
+      <details class="faq">
+        <summary>¿Quién puede solicitarla? <span class="plus">+</span></summary>
+        <p>Cualquier persona mayor de edad con un equipo mínimo de tres personas residentes en la ciudad propuesta. No pedimos credenciales académicas ni experiencia previa en foresight: pedimos ganas de reunir a la gente y de pasar de la idea a la acción.</p>
+      </details>
+      <details class="faq">
+        <summary>¿El Generador de Escenarios reemplaza al equipo? <span class="plus">+</span></summary>
+        <p>No. Es una herramienta de aceleración: produce hipótesis que el equipo local critica, recorta y reescribe. La IA propone; la comunidad decide. Los escenarios que finalmente llegan al encuentro son siempre firmados por personas.</p>
+      </details>
+      <details class="faq">
+        <summary>¿Qué es exactamente el encuentro? <span class="plus">+</span></summary>
+        <p>Es el momento distintivo de cada capítulo: una jornada —o varias— donde la ciudad se reúne en público para poner en escena sus futuros. No es una fórmula rígida: cada capítulo decide su escala, su duración, su ritmo y su formato.</p>
+      </details>
+      <details class="faq">
+        <summary>¿Puedo abrir más de un capítulo? <span class="plus">+</span></summary>
+        <p>Una persona puede colaborar en varios capítulos, pero cada uno necesita un equipo distinto y un anclaje territorial real. No replicamos cadenas: hacemos crecer comunidades.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="wrap">
+    <h2>Tu ciudad ya tiene un futuro. Falta reunirla para construirlo.</h2>
+    <p>Abre el capítulo de Escuela de Futuros donde vives. La licencia es gratuita y la convocatoria está abierta.</p>
+    <a href="#licencia" class="btn">Únete a la comunidad <span class="arr">→</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-brand">
+      <div class="brand">
+        <div class="brand-mark">EF</div>
+        <div class="brand-name">Escuela de Futuros<em>una comunidad global</em></div>
+      </div>
+      <p>Una comunidad global, sin oficina central, donde las personas se reúnen para imaginar, diseñar y construir mejores futuros.</p>
+    </div>
+    <div>
+      <h6>Programa</h6>
+      <ul>
+        <li><a href="#manifiesto">Manifiesto</a></li>
+        <li><a href="#encuentro">El encuentro</a></li>
+        <li><a href="#generador">Generador</a></li>
+        <li><a href="#capitulos">Capítulos</a></li>
+      </ul>
+    </div>
+    <div>
+      <h6>Comunidad</h6>
+      <ul>
+        <li><a href="#licencia">Solicitar licencia</a></li>
+        <li><a href="#">En acción</a></li>
+        <li><a href="#">La red</a></li>
+        <li><a href="#">Boletín</a></li>
+      </ul>
+    </div>
+    <div>
+      <h6>Contacto</h6>
+      <ul>
+        <li><a href="#">hola@escueladefuturos.org</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Escuela de Futuros</span>
+    <span>Maqueta v0.3 · prototipo conceptual</span>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.gen-chips').forEach(group => {
+    group.addEventListener('click', e => {
+      if(!e.target.classList.contains('chip')) return;
+      group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      e.target.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
